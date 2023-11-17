@@ -4,7 +4,6 @@ if($conn->connect_error){
     die("Ошибка: " . $conn->connect_error);
 }
 
-// Create Table Query
 $sql = "CREATE TABLE Users_1 (
            id INTEGER AUTO_INCREMENT PRIMARY KEY,
            name VARCHAR(30),
@@ -18,7 +17,6 @@ if($conn->query($sql)){
     echo "Ошибка: " . $conn->error;
 }
 
-// Insert Data Query
 $sql = "INSERT INTO Users_1 (name, loginUsers, PasswordUsers) VALUES 
             ('Sam', 'login1', '414141'), 
             ('Ann', 'login2', '848484'), 

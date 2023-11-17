@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <link rel="stylesheet" href="style.css">
+
 <body>
     <h1 class='centrated'> Добавить заметку </h1>
 
@@ -17,6 +18,7 @@
         <label for="category">Категория:</label>
         <select name="category" id='category'>
             <?php
+            //заполняю select 
             $conn = new mysqli("localhost", "root", "", "Fakhrutdinova_SecondTask");
             if ($conn->connect_error) {
                 die("Ошибка соединения с базой данных: " . $conn->connect_error);
@@ -39,7 +41,7 @@
     </form>
 
     <?php
-
+    //добавление записи
     $mysqli = new mysqli("localhost", "root", "", "Fakhrutdinova_SecondTask");
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = $_POST['name'];
@@ -49,8 +51,6 @@
         $result = $mysqli->query($query);
 
         if ($result) {
-            echo "Пользователь успешно добавлен!";
-            header("Location: display.php");
         } else {
             echo "Ошибка при добавлении пользователя: " . $mysqli->error;
         }
@@ -60,23 +60,25 @@
 
 
     <?php
+    //основная таблица
     $mysqli = new mysqli("localhost", "root", "", "Fakhrutdinova_SecondTask");
 
     if ($mysqli->connect_error) {
         die('Ошибка подключения (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
     }
-    
+
     function displayСategory($mysqli)
     {
+        //запрос с слиянием таблиц
         $query = "SELECT n.id, n.name, c.name AS category_name
                   FROM notes AS n
-                  INNER JOIN category AS c ON n.category_id = c.id"; // Обновленный запрос
+                  INNER JOIN category AS c ON n.category_id = c.id"; 
         $result = $mysqli->query($query);
-    
+
         if (!$result) {
             die('Ошибка выполнения запроса: ' . $mysqli->error);
         }
-        
+
         echo "<h2 class='centrated'>Заметки</h2>";
         echo "<table class='centrated' border='1'>
             <thead>
@@ -86,7 +88,7 @@
                 <th>Редактирование</th>
                 <th>Удаление</th>
             </thead>";
-    
+
         while ($row = $result->fetch_assoc()) {
             echo "<tr>
                 <td>{$row['name']}</td>
@@ -103,10 +105,10 @@
                 </td>
             </tr>";
         }
-    
+
         echo "</table>";
     }
-    
+
     displayСategory($mysqli);
     $mysqli->close();
     ?>

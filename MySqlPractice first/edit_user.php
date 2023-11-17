@@ -12,7 +12,7 @@ if($conn->connect_error){
 </head>
 <body>
 <?php
-// если запрос GET
+
 if($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["id"]))
 {
     $userid = $conn->real_escape_string($_GET["id"]);
@@ -42,11 +42,11 @@ if($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["id"]))
         echo "Ошибка: " . $conn->error;
     }
 }
-elseif (isset($_POST["id"]) && isset($_POST["name"]) && isset($_POST["loginUsers"])) { // Corrected variable name
-    
+elseif (isset($_POST["id"]) && isset($_POST["name"]) && isset($_POST["loginUsers"])) {  
+    //отправка
     $userid = $conn->real_escape_string($_POST["id"]);
     $username = $conn->real_escape_string($_POST["name"]);
-    $userLogin = $conn->real_escape_string($_POST["loginUsers"]); // Corrected variable name
+    $userLogin = $conn->real_escape_string($_POST["loginUsers"]);  
     $sql = "UPDATE Users_1 SET name = '$username', loginUsers = '$userLogin' WHERE id = '$userid'";
     if($result = $conn->query($sql)){
         header("Location: display.php");

@@ -14,7 +14,8 @@ if ($mysqli->connect_error) {
 }
 
 function displayUsers($mysqli) {
-    $query = "SELECT id, name, loginUsers FROM Users_1"; // Исправлено имя таблицы
+    // таблица
+    $query = "SELECT id, name, loginUsers FROM Users_1"; 
     $result = $mysqli->query($query);
 
     if (!$result) {

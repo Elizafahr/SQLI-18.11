@@ -25,8 +25,8 @@
 
     <input type="submit" value="Добавить пользователя">
 </form>
-<?php
 
+<?php
 $mysqli = new mysqli("localhost", "root", "", "users_DB");
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
