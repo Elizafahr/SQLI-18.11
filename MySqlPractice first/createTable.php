@@ -19,15 +19,15 @@ if($conn->query($sql)){
 }
 
 // Insert Data Query
-$sql = "INSERT INTO Users (name, loginUsers, PasswordUsers) VALUES 
+$sql = "INSERT INTO Users_1 (name, loginUsers, PasswordUsers) VALUES 
             ('Sam', 'login1', '414141'), 
             ('Ann', 'login2', '848484'), 
             ('Juli', 'login3', '98989')";
 
 if($conn->query($sql)){
-    echo "Данные успешно добавлены";
+    echo '<br>'. "Данные успешно добавлены";
 } else{
-    echo "Ошибка: " . $conn->error;
+    echo '<br>'."Ошибка: " . $conn->error;
 }
 
 $conn->close();

@@ -8,7 +8,7 @@ if(isset($_POST["id"]))
     $userid = $conn->real_escape_string($_POST["id"]);
     $sql = "DELETE FROM Users_1 WHERE id = '$userid'";
     if($conn->query($sql)){
-        echo "good";
+         
         header("Location: display.php");
     }
     else{

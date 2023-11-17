@@ -65,49 +65,53 @@
     if ($mysqli->connect_error) {
         die('Ошибка подключения (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
     }
-    
+
     function displayСategory($mysqli)
     {
-        $query = "SELECT n.id, n.name, c.name AS category_name
-                  FROM notes AS n
-                  INNER JOIN category AS c ON n.category_id = c.id"; // Обновленный запрос
+
+        $sqlCategory = "SELECT * FROM category";
+        $resultCategory = $mysqli->query($sqlCategory);
+
+        $query = "SELECT id, name, category_id FROM notes"; // Исправлено имя таблицы
         $result = $mysqli->query($query);
-    
+
         if (!$result) {
             die('Ошибка выполнения запроса: ' . $mysqli->error);
         }
-        
         echo "<h2 class='centrated'>Заметки</h2>";
         echo "<table class='centrated' border='1'>
             <thead>
                 <th>Название</th>
-                <th>Категория</th>
-                <th>ID</th>
+                <th>Категория</th>             
+                  <th>id</th>
+
                 <th>Редактирование</th>
                 <th>Удаление</th>
             </thead>";
-    
+           
         while ($row = $result->fetch_assoc()) {
+             $row1=$resultCategory->fetch_assoc();
             echo "<tr>
                 <td>{$row['name']}</td>
-                <td>{$row['category_name']}</td>
-                <td>{$row['id']}</td>
-                <td>
-                    <form action='delete.php' method='post'>
-                    <input type='hidden' name='id' value='" . $row["id"] . "' />
-                    <input class='btn' type='submit' value='Удалить'>
-                    </form>
-                </td>
+                <td>{$row['category_id']}</td>
+                <td>{$row1['categoryName']}</td>
+
+                <td><form action='delete.php' method='post'>
+                <input type='hidden' name='id' value='" . $row["id"] . "' />
+                <input class='btn' type='submit' value='Удалить'>
+        </form></td>
                 <td>
                     <a class='btn' style='color:coral;' href='edit_user.php?id={$row['id']}'>Редактировать</a>
                 </td>
             </tr>";
         }
-    
+
         echo "</table>";
     }
-    
+
     displayСategory($mysqli);
+
+
     $mysqli->close();
     ?>
 

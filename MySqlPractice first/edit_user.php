@@ -16,7 +16,7 @@ if($conn->connect_error){
 if($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["id"]))
 {
     $userid = $conn->real_escape_string($_GET["id"]);
-    $sql = "SELECT * FROM Users WHERE id = '$userid'";
+    $sql = "SELECT * FROM Users_1 WHERE id = '$userid'";
     if($result = $conn->query($sql)){
         if($result->num_rows > 0){
             foreach($result as $row){
@@ -47,7 +47,7 @@ elseif (isset($_POST["id"]) && isset($_POST["name"]) && isset($_POST["loginUsers
     $userid = $conn->real_escape_string($_POST["id"]);
     $username = $conn->real_escape_string($_POST["name"]);
     $userLogin = $conn->real_escape_string($_POST["loginUsers"]); // Corrected variable name
-    $sql = "UPDATE Users SET name = '$username', loginUsers = '$userLogin' WHERE id = '$userid'";
+    $sql = "UPDATE Users_1 SET name = '$username', loginUsers = '$userLogin' WHERE id = '$userid'";
     if($result = $conn->query($sql)){
         header("Location: display.php");
     } else{
