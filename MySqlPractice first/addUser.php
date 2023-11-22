@@ -27,13 +27,14 @@
 </form>
 
 <?php
-$mysqli = new mysqli("localhost", "root", "", "users_DB");
+
+$mysqli = new mysqli("localhost", "root", "", "users_DB_Sec");
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $login = $_POST['login'];
     $password = $_POST['password'];
 
-    $query = "INSERT INTO users (name, loginUsers, PasswordUsers) VALUES ('$name', '$login', '$password')";
+    $query = "INSERT INTO Users_1 (name, loginUsers, PasswordUsers) VALUES ('$name', '$login', '$password')";
     $result = $mysqli->query($query);
 
     if ($result) {

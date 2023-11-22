@@ -3,7 +3,7 @@ $conn = new mysqli("localhost", "root", "");
 if($conn->connect_error){
     die("Ошибка: " . $conn->connect_error);
 }
-$sql = "CREATE DATABASE users_DB";
+$sql = "CREATE DATABASE users_DB_Sec";
 if($conn->query($sql)){
     echo "База данных успешно создана";
 } else{

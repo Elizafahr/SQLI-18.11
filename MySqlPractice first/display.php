@@ -7,7 +7,7 @@
 </head>
 <body>
 <?php
-$mysqli = new mysqli("localhost", "root", "", "users_DB");
+$mysqli = new mysqli("localhost", "root", "", "users_DB_Sec");
 
 if ($mysqli->connect_error) {
     die('Ошибка подключения (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);

@@ -27,13 +27,10 @@
             $sql = "SELECT * FROM category";
             $result = $conn->query($sql);
 
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
-                }
-            } else {
-                echo "Нет доступных категорий.";
+            while ($row = $result->fetch_assoc()) {
+                echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
             }
+
             $conn->close();
             ?>
         </select>
@@ -41,6 +38,7 @@
     </form>
 
     <?php
+
     //добавление записи
     $mysqli = new mysqli("localhost", "root", "", "Fakhrutdinova_SecondTask");
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -50,19 +48,14 @@
         $query = "INSERT INTO notes (name, category_id) VALUES ('$name', '$category')";
         $result = $mysqli->query($query);
 
-        if ($result) {
-        } else {
+        if (!$result)
             echo "Ошибка при добавлении пользователя: " . $mysqli->error;
         }
-    }
     ?>
-
-
 
     <?php
     //основная таблица
     $mysqli = new mysqli("localhost", "root", "", "Fakhrutdinova_SecondTask");
-
     if ($mysqli->connect_error) {
         die('Ошибка подключения (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
     }
@@ -72,7 +65,7 @@
         //запрос с слиянием таблиц
         $query = "SELECT n.id, n.name, c.name AS category_name
                   FROM notes AS n
-                  INNER JOIN category AS c ON n.category_id = c.id"; 
+                  INNER JOIN category AS c ON n.category_id = c.id";
         $result = $mysqli->query($query);
 
         if (!$result) {
@@ -85,8 +78,8 @@
                 <th>Название</th>
                 <th>Категория</th>
                 <th>ID</th>
-                <th>Редактирование</th>
                 <th>Удаление</th>
+                <th>Редактирование</th>
             </thead>";
 
         while ($row = $result->fetch_assoc()) {
@@ -95,17 +88,16 @@
                 <td>{$row['category_name']}</td>
                 <td>{$row['id']}</td>
                 <td>
-                    <form action='delete.php' method='post'>
-                    <input type='hidden' name='id' value='" . $row["id"] . "' />
-                    <input class='btn' type='submit' value='Удалить'>
-                    </form>
+                <form action='delete.php' method='post' onsubmit='ask();'>
+                <input type='hidden' name='id' value='" . $row["id"] . "' />
+                <input class='btn' type='submit' value='Удалить'>
+            </form>
                 </td>
                 <td>
                     <a class='btn' style='color:coral;' href='edit_user.php?id={$row['id']}'>Редактировать</a>
                 </td>
             </tr>";
         }
-
         echo "</table>";
     }
 
@@ -113,6 +105,13 @@
     $mysqli->close();
     ?>
 
+
+
+<script>
+function ask(){
+    return confirm('Вы уверены?');
+}    
+</script>
 </body>
 
 </html>
